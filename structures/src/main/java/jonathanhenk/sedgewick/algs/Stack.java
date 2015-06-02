@@ -1,20 +1,20 @@
-
+package jonathanhenk.sedgewick.algs;
 
 public class Stack<Item>
 {
-	private LinkedList<Item> stack;
+	private LinkedList stack;
 
 	public void push(Item a)
 	{
 		stack.insertAtBeginning(a);
 	}
 
-	public Item pop()
+	public Item pop() throws Exception
 	{
-		try
-			stack.removeFromBeginning();
-		catch (Exception e)
-			throw new Exception("Cannot pop from empty stack.");
+		try {
+			return stack.removeFromBeginning(); }
+		catch (Exception e) {
+			throw new Exception("Cannot pop from empty stack."); }
 	}
 
 	public int size()
@@ -22,7 +22,7 @@ public class Stack<Item>
 		return stack.size();
 	}
 
-	private class LinkedList<Item>
+	private class LinkedList
 	{
 		private Node first;
 		private Node last;
@@ -92,7 +92,7 @@ public class Stack<Item>
 			return size;
 		}
 
-		private class Node<Item>
+		private class Node
 		{
 			Item item;
 			Node next;

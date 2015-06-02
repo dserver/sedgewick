@@ -70,7 +70,7 @@ public class LinkedList<Item>
 		return size;
 	}
 
-	private class Node<Item>
+	private class Node
 	{
 		Item item;
 		Node next;
