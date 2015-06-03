@@ -9,14 +9,18 @@ import java.nio.file.DirectoryStream;
 public class FileUtils
 {
 	
-	public void ListFiles(String directory)
+	public void listFiles(String directory)
 	{
 		Queue<ListFileNode> files_with_indent_q = new Queue<ListFileNode>();
-		files_with_indent_q = ListFilesQ(directory, 0, files_with_indent_q);
+		try {
+			files_with_indent_q = listFilesQ(directory, 0, files_with_indent_q);
+		} catch (Exception e)
+		{ e.printStackTrace(); }
+		printFileQ(files_with_indent_q);
 
 	}
 
-	private Queue<ListFileNode> ListFilesQ(String directory, int ind, Queue<ListFileNode> q)
+	private Queue<ListFileNode> listFilesQ(String directory, int ind, Queue<ListFileNode> q)
 		throws Exception
 	{
 		File cur_dir = new File(directory);
@@ -24,7 +28,7 @@ public class FileUtils
 		ArrayList<File> dirs = new ArrayList<File>();
 
 		try {
-			DirectoryStream<File> stream = cur_dir.listFiles();
+			File[] stream = cur_dir.listFiles();
 			for (File f : stream)
 			{
 				if (f.isDirectory())
@@ -39,7 +43,7 @@ public class FileUtils
 			for (File f : files)
 				q.enqueue(new ListFileNode(f, ind));
 			for (File d : dirs)
-				ListFilesQ(d.toString(),ind+1,q);
+				listFilesQ(d.toString(),ind+1,q);
 
 			return q;
 		} catch (Exception e)
@@ -50,9 +54,13 @@ public class FileUtils
 
 	private void printFileQ(Queue<ListFileNode> q)
 	{
-		while (q.size() > 0)
+		for (ListFileNode fn : q)
 		{
-			// need to implements iterable in queue class
+			StringBuilder sb = new StringBuilder();
+			for (int i=0; i < fn.indentation; i++)
+				sb.append("\t");
+			sb.append(fn.file.toString());
+			StdOut.println(sb);
 		}
 	}
 

@@ -81,49 +81,74 @@ public class QueueTest extends TestCase
 
     }
 
-
-    public void testEfficiency()
+    public void testEqualityAndIterator()
     {
+        Queue<String> a = new Queue<String>();
+        Queue<String> b = new Queue<String>();
+
+        Assert.assertTrue("failure - empty queues not equal.", a.equals(b));
+
+        a.enqueue("this");
+        b.enqueue("that");
+
+        Assert.assertFalse("failure - queues are not equal.", a.equals(b));
+
         try {
-        Out o = new Out("C:\\Users\\Jon\\algs4\\QSpeed.txt");
-        Queue<String> q = new Queue<String>();
-        Stopwatch sw = new Stopwatch();
+            a.dequeue();
+        } catch (Exception e)
+        {
+            Assert.fail("failure - exception thrown on dequeue.");
+        }
 
+        a.enqueue("that");
 
-        // Insert and remove 5000 Strings
-        for (int i=1; i<=50000; i++)
-            q.enqueue("test_string");
+        Assert.assertTrue("failure - empty queues not equal.", a.equals(b));
 
-        for (int i=1; i<=50000; i++)
-            q.dequeue();
-
-        o.println("50K strings," + String.valueOf(sw.elapsedTime()));
-
-        // Insert and remove 100000 Strings
-        for (int i=1; i<=100000; i++)
-            q.enqueue("test_string");
-
-        for (int i=1; i<=100000; i++)
-            q.dequeue();
-
-        o.println("100K strings," + String.valueOf(sw.elapsedTime()));
-
-        // Insert and remove 1000000 Strings
-        for (int i=1; i<=1000000; i++)
-            q.enqueue("test_string");
-
-        for (int i=1; i<=1000000; i++)
-            q.dequeue();
-
-        o.println("1M strings," + String.valueOf(sw.elapsedTime()));
-
-
-
-        Assert.assertTrue("f", true);
-    } catch (Exception e)
-    {
-        e.printStackTrace();
-        Assert.fail(e.getMessage());
     }
-    }
+
+
+    // public void testEfficiency()
+    // {
+    //     try {
+    //     Out o = new Out("C:\\Users\\Jon\\algs4\\QSpeed.txt");
+    //     Queue<String> q = new Queue<String>();
+    //     Stopwatch sw = new Stopwatch();
+
+
+    //     // Insert and remove 5000 Strings
+    //     for (int i=1; i<=50000; i++)
+    //         q.enqueue("test_string");
+
+    //     for (int i=1; i<=50000; i++)
+    //         q.dequeue();
+
+    //     o.println("50K strings," + String.valueOf(sw.elapsedTime()));
+
+    //     // Insert and remove 100000 Strings
+    //     for (int i=1; i<=100000; i++)
+    //         q.enqueue("test_string");
+
+    //     for (int i=1; i<=100000; i++)
+    //         q.dequeue();
+
+    //     o.println("100K strings," + String.valueOf(sw.elapsedTime()));
+
+    //     // Insert and remove 1000000 Strings
+    //     for (int i=1; i<=1000000; i++)
+    //         q.enqueue("test_string");
+
+    //     for (int i=1; i<=1000000; i++)
+    //         q.dequeue();
+
+    //     o.println("1M strings," + String.valueOf(sw.elapsedTime()));
+
+
+
+    //     Assert.assertTrue("f", true);
+    // } catch (Exception e)
+    // {
+    //     e.printStackTrace();
+    //     Assert.fail(e.getMessage());
+    // }
+    // }
 }
